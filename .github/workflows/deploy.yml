@@ -22,8 +22,8 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build --strict --verbose --site-dir public
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
         with:
-          name: public
-          path: public
+          build-dir: public
+
