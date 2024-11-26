@@ -1,0 +1,29 @@
+name: Deploy Pages
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 'latest'
+
+      - name: Install dependencies
+        run: pip3 install -r requirements.txt
+
+      - name: Build MkDocs site
+        run: mkdocs build --strict --verbose --site-dir public
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: public
+          path: public
